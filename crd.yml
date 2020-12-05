@@ -1,0 +1,30 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: exchangerates.operators.brennerm.github.io
+spec:
+  group: operators.brennerm.github.io
+  versions:
+    - name: v1 # it's possible to provide multiple versions of a CRD
+      served: true # it's possible to disable a CRD
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  enum: ["CAD","CHF","GBP","JPY","PLN","USD"] # we'll limit the valid currencies to these
+            status:
+              type: object
+              x-kubernetes-preserve-unknown-fields: true
+  scope: Namespaced # resources can be namespaced or available for the whole cluster
+  names:
+    plural: exchangerates
+    singular: exchangerate
+    kind: ExchangeRate # this name is being used in manifests
+    shortNames: # these short names can be used in the CLI, e.g. kubectl get er
+    - er

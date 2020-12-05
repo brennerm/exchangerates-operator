@@ -1,0 +1,6 @@
+apiVersion: operators.brennerm.github.io/v1
+kind: ExchangeRate
+metadata:
+  name: exchange-rate-usd
+spec:
+  currency: USD
